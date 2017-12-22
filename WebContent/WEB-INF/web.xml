@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>SpringMVCDemo</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+ <!--   spring监听器 -->
+ <!--  自动装载applicationContext.xml配置文件，在web.xml一定要加上启动spring的监听器,这样配置在xml文件中的bean才会初始化  -->
+ <listener>
+   <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+ <!--  它会默认查找位于:WEB-INF/下的是否有一个文件名称为:applicationContext.xml  -->
+ <context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>classpath:applicationContext.xml</param-value>
+ </context-param>
+ 
+  <!--   字符编码过滤器 -->
+  <filter>
+    <filter-name>e</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+     <!-- 初始化 -->
+     <init-param>
+    	<param-name>encoding</param-name>
+    	<param-value>UTF-8</param-value>
+     </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>e</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!--   springMVC请求的servlet -->
+  <servlet>
+      <servlet-name>spring</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+         <!--加载核心配置文件 -->
+      <!--注意：如果spring-servlet.xml配置文件在WEB-INF下，可省略-->
+      <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring-servlet.xml</param-value>
+      </init-param>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>spring</servlet-name>
+   <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+</web-app>

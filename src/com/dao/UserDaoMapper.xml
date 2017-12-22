@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserDao">
+  <!-- 添加  -->
+  <insert id="UserAdd" parameterType="com.entity.UserEntity">
+    INSERT INTO t_user (id,username,PASSWORD, nickname,ispass)
+    VALUE (#{id},#{username},#{password},#{nickname},#{ispass})
+  </insert>
+  <!-- 修改  -->
+  <update id="UserUpdate" parameterType="com.entity.UserEntity">
+    UPDATE t_user SET
+     username=#{username},PASSWORD=#{password},nickname=#{nickname},ispass=#{ispass} 
+     WHERE id=#{id}
+  </update>
+  <!-- 删除  -->
+  <delete id="UserDelete" parameterType="String">
+   DELETE FROM t_user WHERE id =#{id}
+  </delete>
+  <!-- findByiD  -->
+  <sql id="findAll">
+    select * from t_user
+  </sql>
+  <select id="UserfindById" parameterType="String" resultType="com.entity.UserEntity">
+     <include refid="findAll"/>
+     where id=#{id}
+  </select>
+  <!-- findAll -->
+  <select id="UserfindAll"  resultType="com.entity.UserEntity">
+     <include refid="findAll"/>
+  </select>
+<select id="UserfindByName" parameterType="String" resultType="com.entity.UserEntity">
+     <include refid="findAll"/>
+     where username=#{username}
+  </select>
+  
+</mapper>
